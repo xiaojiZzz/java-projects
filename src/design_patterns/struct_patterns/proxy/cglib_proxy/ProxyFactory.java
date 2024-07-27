@@ -1,3 +1,4 @@
+/**
 package design_patterns.struct_patterns.proxy.cglib_proxy;
 
 import net.sf.cglib.proxy.Enhancer;
@@ -33,3 +34,4 @@ public class ProxyFactory implements MethodInterceptor {
         return obj;
     }
 }
+*/

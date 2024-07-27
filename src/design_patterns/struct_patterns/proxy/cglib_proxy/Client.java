@@ -1,5 +1,8 @@
 package design_patterns.struct_patterns.proxy.cglib_proxy;
 
+/**
+import design_patterns.struct_patterns.proxy.jdk_proxy.ProxyFactory;
+
 public class Client {
     public static void main(String[] args) {
         //创建代理工厂对象
@@ -10,3 +13,4 @@ public class Client {
         proxyObject.sell();
     }
 }
+*/
