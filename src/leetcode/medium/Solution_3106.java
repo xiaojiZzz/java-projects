@@ -44,7 +44,7 @@ public class Solution_3106 {
         for (int i = 0; i < n; i++) {
             char c = chars[i];
             int diff = Math.min(c - 'a', 'z' - c + 1);
-            if (diff >= k) {
+            if (diff > k) {
                 chars[i] = (char) (c - k);
                 return String.valueOf(chars);
             } else {
