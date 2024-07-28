@@ -74,3 +74,23 @@ class Solution {
     }
 }
 */
+
+/*
+class Solution {
+    public long countSubarrays(int[] nums, int k) {
+        long ans = 0;
+        int cnt = 0;
+        for (int i = 0; i < nums.length; i++) {
+            int x = nums[i];
+            cnt += x == k ? 1 : 0;
+            for (int j = i - 1; j >= 0 && (nums[j] & x) != nums[j]; j--) {
+                cnt -= nums[j] == k ? 1 : 0;
+                nums[j] &= x;
+                cnt += nums[j] == k ? 1 : 0;
+            }
+            ans += cnt;
+        }
+        return ans;
+    }
+}
+*/
