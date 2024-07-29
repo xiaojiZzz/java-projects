@@ -4,7 +4,7 @@ import java.util.*;
 
 // 可用于求解单源最短路径问题 不能解决带  负权值的图和带负权回路的图
 // 朴素 Dijkstra 适用于稠密图 时间复杂度 o(n^2) n 为节点数
-@SuppressWarnings({"all"})
+
 public class Dijkstra {
     private int n;
     // graph: int[i][j] = weight, i -> j : weight
@@ -50,7 +50,7 @@ public class Dijkstra {
 }
 
 // 堆优化的 Dijkstra 算法，适用于稀疏图，时间复杂度为 o(eloge) e 为边数
-@SuppressWarnings({"all"})
+
 class DijkstraUseHeap {
     private int n;
     // edges[i] = [ui, vi, lengthi]

@@ -1,6 +1,5 @@
 package data_structure_and_algorithm;
 
-@SuppressWarnings({"all"})
 // 堆排序，建堆：o(n)，排序：o(nlogn)
 public class HeapSort {
     public void heapSort(int[] arr) {

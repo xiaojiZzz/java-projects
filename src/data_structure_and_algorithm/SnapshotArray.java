@@ -3,7 +3,7 @@ package data_structure_and_algorithm;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings({"all"})
+
 // 快照数组 lc.1146 用于查找不同版本数组对应索引处的值
 public class SnapshotArray {
     private int snap_cnt;

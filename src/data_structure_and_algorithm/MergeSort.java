@@ -1,6 +1,6 @@
 package data_structure_and_algorithm;
 
-//@SuppressWarnings({"all"})
+//
 // 归并排序
 public class MergeSort {
     public void mergeSort(int[] arr, int low, int high) {

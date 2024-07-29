@@ -1,6 +1,6 @@
 package data_structure_and_algorithm;
 
-@SuppressWarnings({"all"})
+
 // 二分模版，实现 o(logn) 的时间复杂度
 // 用于在升序数组中查找 target 元素的索引
 // 该模版可以用于其他二分的情况

@@ -2,7 +2,7 @@ package data_structure_and_algorithm;
 
 import java.util.Arrays;
 
-@SuppressWarnings({"all"})
+
 // 可以用于求解最小生成树，以结点为基础
 public class Prim {
     private int n;

@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-@SuppressWarnings({"all"})
+
 // Least Recently Used（最近最少使用），一种淘汰策略
 public class LRU {
     class Node {
@@ -118,7 +118,7 @@ public class LRU {
     }
 }
 
-@SuppressWarnings({"all"})
+
 // 利用api
 class LRUCache extends LinkedHashMap<Integer, Integer> {
     private int capacity;

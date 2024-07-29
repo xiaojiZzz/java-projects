@@ -1,6 +1,6 @@
 package data_structure_and_algorithm;
 
-@SuppressWarnings({"all"})
+
 //并查集
 public class UnionFind {
     private int[] parent;

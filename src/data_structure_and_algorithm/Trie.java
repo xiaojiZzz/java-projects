@@ -1,6 +1,6 @@
 package data_structure_and_algorithm;
 
-@SuppressWarnings({"all"})
+
 // 字典树 用于处理字符串集合，例如用于高效地存储和检索字符串数据集中的键
 public class Trie {
     class TrieNode {

@@ -2,7 +2,7 @@ package data_structure_and_algorithm;
 
 import java.util.*;
 
-@SuppressWarnings({"all"})
+
 // 拓扑排序
 public class TopologicalSort {
     private int n;

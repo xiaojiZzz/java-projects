@@ -1,6 +1,5 @@
 package data_structure_and_algorithm;
 
-@SuppressWarnings({"all"})
 // 树状数组 用于：区间求和、单点修改、区间最大值（模版要改，可改用线段数）
 public class BinaryIndexedTree {
     private int n;
