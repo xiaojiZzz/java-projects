@@ -49,7 +49,6 @@ class Solution {
         return ans;
     }
 
-
     private void backtrack(List<List<Integer>> ans, List<Integer> path, int[] nums, int start) {
         ans.add(new ArrayList<>(path));
         for (int i = start; i < nums.length; i++) {
