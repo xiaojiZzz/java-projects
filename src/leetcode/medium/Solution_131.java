@@ -99,3 +99,40 @@ class Solution {
     }
 }
 */
+
+/*
+class Solution {
+    public List<List<String>> partition(String s) {
+        List<List<String>> ans = new ArrayList<>();
+        backtrack(ans, new ArrayList<>(), s, 0, s.length());
+        return ans;
+    }
+
+    private void backtrack(List<List<String>> ans, List<String> path, String s, int idx, int len) {
+        if (idx == len) {
+            ans.add(new ArrayList<>(path));
+            return;
+        }
+        for (int i = idx; i < len; i++) {
+            String substring = s.substring(idx, i + 1);
+            if (is(substring)) {
+                path.add(substring);
+                backtrack(ans, path, s, i + 1, len);
+                path.remove(path.size() - 1);
+            }
+        }
+    }
+
+    private boolean is(String s) {
+        int l = 0, r = s.length() - 1;
+        while (l < r) {
+            if (s.charAt(l) != s.charAt(r)) {
+                return false;
+            }
+            l++;
+            r--;
+        }
+        return true;
+    }
+}
+*/
