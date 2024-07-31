@@ -26,7 +26,9 @@ package leetcode.contest.weekly_408;
  * 3 <= X, Y <= 109
  * 1 <= circles.length <= 1000
  * circles[i].length == 3
- * 1 <= xi, yi, ri <= 109
+ * 1 <= ri <= 109
+ * 1 <= xi < X
+ * 1 <= yi < Y
  */
 public class Solution_3235 {
 
@@ -69,7 +71,6 @@ public class Solution_3235 {
         }
     }
 
-    // ps：这题判题案例都是默认圆心在矩形内部，所以按照这个条件进行解题
     public boolean canReachCorner(int X, int Y, int[][] circles) {
         int n = circles.length;
         UnionFind unionFind = new UnionFind(n);
