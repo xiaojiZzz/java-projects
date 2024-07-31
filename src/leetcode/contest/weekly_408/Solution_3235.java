@@ -104,6 +104,7 @@ public class Solution_3235 {
     }
 }
 
+/*
 class UnionFind {
     private final int[] fa;
 
@@ -126,7 +127,6 @@ class UnionFind {
     }
 }
 
-/*
 class Solution {
     public boolean canReachCorner(int x, int y, int[][] circles) {
         int n = circles.length;
