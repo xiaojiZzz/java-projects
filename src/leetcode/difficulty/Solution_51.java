@@ -2,8 +2,8 @@ package leetcode.difficulty;
 
 import java.util.*;
 
-
 /**
+ * N 皇后
  * 按照国际象棋的规则，皇后可以攻击与之处在同一行或同一列或同一斜线上的棋子。
  * n 皇后问题 研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并且使皇后彼此之间不能相互攻击。
  * 给你一个整数 n ，返回所有不同的 n 皇后问题 的解决方案。
@@ -11,8 +11,70 @@ import java.util.*;
  * 示例 1：
  * 输入：n = 4
  * 输出：[[".Q..","...Q","Q...","..Q."],["..Q.","Q...","...Q",".Q.."]]
+ * 示例 2：
+ * 输入：n = 1
+ * 输出：[["Q"]]
+ * 提示：
+ * 1 <= n <= 9
  */
 public class Solution_51 {
+    public List<List<String>> solveNQueens(int n) {
+        char[][] queens = new char[n][n];
+        List<List<String>> ans = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            Arrays.fill(queens[i], '.');
+        }
+        backtrack(ans, queens, 0, n);
+        return ans;
+    }
+
+    public void backtrack(List<List<String>> ans, char[][] queens, int idx, int n) {
+        if (idx == n) {
+            List<String> list = new ArrayList<>();
+            for (int i = 0; i < n; i++) {
+                list.add(new String(queens[i]));
+            }
+            ans.add(list);
+            return;
+        }
+        for (int i = 0; i < n; i++) {
+            queens[idx][i] = 'Q';
+            if (isOk(queens, idx, i, n)) {
+                backtrack(ans, queens, idx + 1, n);
+            }
+            queens[idx][i] = '.';
+        }
+    }
+
+    public boolean isOk(char[][] queens, int i, int j, int n) {
+        for (int k = 0; k < i; k++) {
+            if (queens[k][j] == queens[i][j]) {
+                return false;
+            }
+        }
+        int x = i - 1, y = j - 1;
+        while (x >= 0 && y >= 0) {
+            if (queens[x][y] == queens[i][j]) {
+                return false;
+            }
+            x--;
+            y--;
+        }
+        x = i - 1;
+        y = j + 1;
+        while (x >= 0 && y < n) {
+            if (queens[x][y] == queens[i][j]) {
+                return false;
+            }
+            x--;
+            y++;
+        }
+        return true;
+    }
+}
+
+/*
+class Solution {
     private List<List<String>> lists = new ArrayList<>();
 
     public List<List<String>> solveNQueens(int n) {
@@ -56,92 +118,4 @@ public class Solution_51 {
         return true;
     }
 }
-
-/*class Solution {
-    public List<List<String>> solveNQueens(int n) {
-        //定义一个返回结果的集合
-        List<List<String>> res = new ArrayList<>();
-        //定义一个存储皇后的集合
-        int[] queens = new int[n];
-        //填充数组queens[]中的每个元素都是-1
-        //queens={-1,-1,-1...-1}
-        Arrays.fill(queens, -1);
-        //定义一个变量，来记录当前元素所在的列，并将他所在的列标记为不可放元素
-        Set<Integer> columns = new HashSet<>();
-        //定义一个变量，来记录当前元素所在的左对角线，并将他所在的左对角线标记为不可放元素
-        Set<Integer> diagonals1 = new HashSet<>();
-        //定义一个变量，来纪律当前元素所在的右对角线，并将他所在的右对角线标记为不可放元素
-        Set<Integer> diagonals2 = new HashSet<>();
-        //深度优先搜索方法
-        dfs(res, queens, n, 0, columns, diagonals1, diagonals2);
-        return res;
-    }
-
-    public void dfs(List<List<String>> res, int[] queens, int n, int row, Set<Integer> columns, Set<Integer> diagonals1, Set<Integer> diagonals2) {
-        //如果当前遍历到最后一行，就说明存在一个解法
-        //所以将皇后的位置，存放入结果中
-        if (row == n) {
-            //用来将当前的N行N列中的元素所在的位置结果，转换格式
-            List<String> board = generateBoard(queens, n);
-            //将符合条件的结果添加进返回结果集中
-            res.add(board);
-
-        } else {
-            //遍历所有行
-            for (int i = 0; i < n; i++) {
-                //用来标记，当前行元素所在的列，都不可放元素
-                if (columns.contains(i)) {
-                    continue;
-                }
-                //去除左对角线上的所有元素
-                //row 表示行，i表示列
-                int diagonal1 = row - i;
-                if (diagonals1.contains(diagonal1)) {
-                    continue;
-                }
-                //去除右对角线上的元素
-                int diagonal2 = row + i;
-                if (diagonals2.contains(diagonal2)) {
-                    continue;
-                }
-                //经过上面的三次排除，就可以找到元素在当前行的哪一列的位置。
-                //选第一行的第几列，也可以叫单元格所在的位置
-                queens[row] = i;
-                //把选中的单元格加入到，去除列的集合中
-                //用来给下一行的元素所在的列作为排除条件判断
-                columns.add(i);
-                //把选中的单元格加入到，去除左对角线的集合中
-                diagonals1.add(diagonal1);
-                //把选中的单元格加入到，去除右对角线的集合中
-                diagonals2.add(diagonal2);
-                //递归遍历下一行，
-                dfs(res, queens, n, row + 1, columns, diagonals1, diagonals2);
-                //剪枝操作
-                queens[row] = -1;
-                //将当前列和左对角线和右对角线的元素都删除，避免重复遍历
-                columns.remove(i);
-                diagonals1.remove(diagonal1);
-                diagonals2.remove(diagonal2);
-            }
-        }
-
-    }
-
-    //转换格式
-    public List<String> generateBoard(int[] queens, int n) {
-        //定义一个结果集，用于返回结果
-        List<String> board = new ArrayList<>();
-        //遍历所有行
-        for (int i = 0; i < n; i++) {
-            char[] row = new char[n];
-            Arrays.fill(row, '.');
-            //将当前行所在的列的，位置置为Q
-            row[queens[i]] = 'Q';
-            //将当前结果添加进结果集中
-            board.add(new String(row));
-        }
-        return board;
-    }
-}*/
-
-
+*/
