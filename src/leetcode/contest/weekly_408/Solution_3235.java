@@ -26,134 +26,50 @@ package leetcode.contest.weekly_408;
  * 3 <= X, Y <= 109
  * 1 <= circles.length <= 1000
  * circles[i].length == 3
- * 1 <= ri <= 109
- * 1 <= xi < X
- * 1 <= yi < Y
+ * 1 <= xi, yi, ri <= 109
  */
 public class Solution_3235 {
-
-    class UnionFind {
-        private int[] parent;
-        private int[] height;
-        private int count;
-
-        public UnionFind(int n) {
-            this.parent = new int[n];
-            this.height = new int[n];
-            for (int i = 0; i < n; i++) {
-                parent[i] = i;
-                height[i] = 1;
-            }
-            this.count = n;
-        }
-
-        public int find(int x) {
-            if (parent[x] != x) {
-                parent[x] = find(parent[x]);
-            }
-            return parent[x];
-        }
-
-        public void union(int x, int y) {
-            int rootX = find(x);
-            int rootY = find(y);
-            if (rootX != rootY) {
-                if (height[rootX] > height[rootY]) {
-                    parent[rootY] = rootX;
-                } else if (height[rootX] < height[rootY]) {
-                    parent[rootX] = rootY;
-                } else {
-                    parent[rootY] = rootX;
-                    height[rootX]++;
-                }
-                count--;
-            }
-        }
-    }
-
     public boolean canReachCorner(int X, int Y, int[][] circles) {
-        int n = circles.length;
-        UnionFind unionFind = new UnionFind(n);
-        for (int i = 0; i < n; i++) {
+        boolean[] vis = new boolean[circles.length];
+        for (int i = 0; i < circles.length; i++) {
             long x = circles[i][0], y = circles[i][1], r = circles[i][2];
-            for (int j = 0; j < n; j++) {
-                long x2 = circles[j][0], y2 = circles[j][1], r2 = circles[j][2];
-                if (Math.pow(x - x2, 2) + Math.pow(y - y2, 2) <= Math.pow(r + r2, 2)) {
-                    unionFind.union(i, j);
-                }
-            }
-        }
-        int[] parent = unionFind.parent;
-        for (int i = 0; i < n; i++) {
-            int idx = parent[i];
-            int lMin = circles[idx][0] - circles[idx][2], lMax = circles[idx][0] + circles[idx][2];
-            int rMin = circles[idx][1] - circles[idx][2], rMax = circles[idx][1] + circles[idx][2];
-            for (int j = 0; j < n; j++) {
-                if (parent[j] == idx) {
-                    lMin = Math.min(lMin, circles[j][0] - circles[j][2]);
-                    lMax = Math.max(lMax, circles[j][0] + circles[j][2]);
-                    rMin = Math.min(rMin, circles[j][1] - circles[j][2]);
-                    rMax = Math.max(rMax, circles[j][1] + circles[j][2]);
-                }
-            }
-            if ((lMin <= 0 && lMax >= X) || (rMin <= 0 && rMax >= Y) ||
-                    (lMin <= X && lMax >= X && rMin <= Y && rMax >= Y) || (lMin <= 0 && rMin <= 0)) {
+            if (inCircle(x, y, r, 0, 0) || // 圆 i 包含矩形左下角
+                    inCircle(x, y, r, X, Y) || // 圆 i 包含矩形右上角
+                    // 圆 i 是否与矩形上边界/左边界相交相切
+                    !vis[i] && (x <= X && Math.abs(y - Y) <= r ||
+                            y <= Y && x <= r ||
+                            y > Y && inCircle(x, y, r, 0, Y)) && dfs(i, X, Y, circles, vis)) {
                 return false;
             }
         }
         return true;
     }
-}
 
-/*
-class UnionFind {
-    private final int[] fa;
+    // 判断点 (x,y) 是否在圆 (ox,oy,r) 内
+    private boolean inCircle(long ox, long oy, long r, long x, long y) {
+        return (ox - x) * (ox - x) + (oy - y) * (oy - y) <= r * r;
+    }
 
-    public UnionFind(int size) {
-        fa = new int[size];
-        for (int i = 1; i < size; i++) {
-            fa[i] = i;
+    private boolean dfs(int i, int X, int Y, int[][] circles, boolean[] vis) {
+        long x1 = circles[i][0], y1 = circles[i][1], r1 = circles[i][2];
+        // 圆 i 是否与矩形右边界/下边界相交相切
+        if (y1 <= Y && Math.abs(x1 - X) <= r1 ||
+                x1 <= X && y1 <= r1 ||
+                x1 > X && inCircle(x1, y1, r1, X, 0)) {
+            return true;
         }
-    }
-
-    public int find(int x) {
-        if (fa[x] != x) {
-            fa[x] = find(fa[x]);
-        }
-        return fa[x];
-    }
-
-    public void merge(int x, int y) {
-        fa[find(x)] = find(y);
-    }
-}
-
-class Solution {
-    public boolean canReachCorner(int x, int y, int[][] circles) {
-        int n = circles.length;
-        // 并查集中的 n 表示左边界或上边界，n+1 表示下边界或右边界
-        UnionFind uf = new UnionFind(n + 2);
-        for (int i = 0; i < n; i++) {
-            int[] c = circles[i];
-            int ox = c[0], oy = c[1], r = c[2];
-            if (ox <= r || oy + r >= y) { // 圆 i 和左边界或上边界有交集
-                uf.merge(i, n);
-            }
-            if (oy <= r || ox + r >= x) { // 圆 i 和下边界或右边界有交集
-                uf.merge(i, n + 1);
-            }
-            for (int j = 0; j < i; j++) {
-                int[] q = circles[j];
-                if ((long) (ox - q[0]) * (ox - q[0]) + (long) (oy - q[1]) * (oy - q[1]) <= (long) (r + q[2]) * (r + q[2])) {
-                    uf.merge(i, j); // 圆 i 和圆 j 有交集
-                }
-            }
-            // 如果节点 n 和 n+1 在并查集的同一个连通块中，说明把从左下角到右上角的路给封死了，直接返回 false
-            if (uf.find(n) == uf.find(n + 1)) { // 无法到达终点
-                return false;
+        vis[i] = true;
+        for (int j = 0; j < circles.length; j++) {
+            long x2 = circles[j][0], y2 = circles[j][1], r2 = circles[j][2];
+            // 在两圆相交相切的前提下，点 A 是否严格在矩形内
+            if (!vis[j] &&
+                    (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2) <= (r1 + r2) * (r1 + r2) &&
+                    x1 * r2 + x2 * r1 < (r1 + r2) * X &&
+                    y1 * r2 + y2 * r1 < (r1 + r2) * Y &&
+                    dfs(j, X, Y, circles, vis)) {
+                return true;
             }
         }
-        return true;
+        return false;
     }
 }
-*/
