@@ -1,6 +1,5 @@
 package data_structure_and_algorithm;
 
-
 //可用于求解最短路径问题 可解决带负权值的图，但不能解决带负权回路的图
 public class Floyd {
     private int n;
