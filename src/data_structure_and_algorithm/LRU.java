@@ -4,14 +4,14 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-
 // Least Recently Used（最近最少使用），一种淘汰策略
 public class LRU {
+
     class Node {
-         int key;
-         int value;
-         Node prev;
-         Node next;
+        int key;
+        int value;
+        Node prev;
+        Node next;
 
         public Node(int key, int value) {
             this.key = key;
@@ -21,10 +21,10 @@ public class LRU {
 
     class DoubleList {
         // 头尾虚节点
-         Node head;
-         Node tail;
+        Node head;
+        Node tail;
         // 链表元素个数
-         int size;
+        int size;
 
         public DoubleList() {
             this.head = new Node(0, 0);
