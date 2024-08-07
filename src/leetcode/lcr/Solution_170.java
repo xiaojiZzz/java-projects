@@ -81,130 +81,33 @@ public class Solution_170 {
 
 /*
 class Solution {
-    private int[] index;
-    private int[] temp;
-    private int[] tempIndex;
-    private int[] ans;
-
-    public int reversePairs(int[] nums) {
-        this.index = new int[nums.length];
-        this.temp = new int[nums.length];
-        this.tempIndex = new int[nums.length];
-        this.ans = new int[nums.length];
-        for (int i = 0; i < nums.length; ++i) {
-            index[i] = i;
-        }
-        int l = 0, r = nums.length - 1;
-        mergeSort(nums, l, r);
-        int count = 0;
-        for (int i = 0; i < ans.length; i++) {
-            count += ans[i];
-        }
-        return count;
+    int[] record, tmp;
+    public int reversePairs(int[] record) {
+        this.record = record;
+        tmp = new int[record.length];
+        return mergeSort(0, record.length - 1);
     }
-
-    public void mergeSort(int[] a, int l, int r) {
-        if (l >= r) {
-            return;
-        }
-        int mid = (l + r) >> 1;
-        mergeSort(a, l, mid);
-        mergeSort(a, mid + 1, r);
-        merge(a, l, mid, r);
-    }
-
-    public void merge(int[] a, int l, int mid, int r) {
-        int i = l, j = mid + 1, p = l;
-        while (i <= mid && j <= r) {
-            if (a[i] <= a[j]) {
-                temp[p] = a[i];
-                tempIndex[p] = index[i];
-                ans[index[i]] += (j - mid - 1);
-                ++i;
-                ++p;
-            } else {
-                temp[p] = a[j];
-                tempIndex[p] = index[j];
-                ++j;
-                ++p;
+    private int mergeSort(int l, int r) {
+        // 终止条件
+        if (l >= r) return 0;
+        // 递归划分
+        int m = (l + r) / 2;
+        int res = mergeSort(l, m) + mergeSort(m + 1, r);
+        // 合并阶段
+        int i = l, j = m + 1;
+        for (int k = l; k <= r; k++)
+            tmp[k] = record[k];
+        for (int k = l; k <= r; k++) {
+            if (i == m + 1)
+                record[k] = tmp[j++];
+            else if (j == r + 1 || tmp[i] <= tmp[j])
+                record[k] = tmp[i++];
+            else {
+                record[k] = tmp[j++];
+                res += m - i + 1; // 统计逆序对
             }
         }
-        while (i <= mid) {
-            temp[p] = a[i];
-            tempIndex[p] = index[i];
-            ans[index[i]] += (j - mid - 1);
-            ++i;
-            ++p;
-        }
-        while (j <= r) {
-            temp[p] = a[j];
-            tempIndex[p] = index[j];
-            ++j;
-            ++p;
-        }
-        for (int k = l; k <= r; ++k) {
-            index[k] = tempIndex[k];
-            a[k] = temp[k];
-        }
-    }
-}
-*/
-
-/*
-class Solution {
-    private int[] c;
-    private int[] a;
-
-    public int reversePairs(int[] nums) {
-        List<Integer> resultList = new ArrayList<Integer>();
-        discretization(nums);
-        init(a.length);
-        for (int i = nums.length - 1; i >= 0; --i) {
-            int id = getId(nums[i]);
-            resultList.add(query(id - 1));
-            update(id);
-        }
-        int count = 0;
-        for (int i = 0; i < resultList.size(); i++) {
-            count += resultList.get(i);
-        }
-        return count;
-    }
-
-    private void init(int length) {
-        c = new int[length];
-        Arrays.fill(c, 0);
-    }
-
-    private void update(int pos) {
-        c[pos]++;
-    }
-
-    private int query(int pos) {
-        int ret = 0;
-        while (pos >= 0) {
-            ret += c[pos];
-            pos--;
-        }
-        return ret;
-    }
-
-    private void discretization(int[] nums) {
-        Set<Integer> set = new HashSet<>();
-        for (int num : nums) {
-            set.add(num);
-        }
-        int size = set.size();
-        a = new int[size];
-        int index = 0;
-        for (int num : set) {
-            a[index++] = num;
-        }
-        Arrays.sort(a);
-    }
-
-    private int getId(int x) {
-        return Arrays.binarySearch(a, x);
+        return res;
     }
 }
 */
