@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 /**
+ * 找到矩阵中的好子集
  * 给你一个下标从 0 开始大小为 m x n 的二进制矩阵 grid 。
  * 从原矩阵中选出若干行构成一个行的 非空 子集，如果子集中任何一列的和至多为子集大小的一半，那么我们称这个子集是 好子集。
  * 更正式的，如果选出来的行子集大小（即行的数量）为 k，那么每一列的和至多为 floor(k / 2) 。
@@ -31,6 +31,12 @@ import java.util.Map;
  * 输入：grid = [[1,1,1],[1,1,1]]
  * 输出：[]
  * 解释：没有办法得到一个好子集。
+ * 提示：
+ * m == grid.length
+ * n == grid[i].length
+ * 1 <= m <= 104
+ * 1 <= n <= 5
+ * grid[i][j] 要么是 0 ，要么是 1 。
  */
 public class Solution_2732 {
     public List<Integer> goodSubsetofBinaryMatrix(int[][] grid) {
