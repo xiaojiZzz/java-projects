@@ -3,8 +3,8 @@ package leetcode.medium;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-
 /**
+ * 跳跃游戏 VI
  * 给你一个下标从 0 开始的整数数组 nums 和一个整数 k 。
  * 一开始你在下标 0 处。每一步，你最多可以往前跳 k 步，但你不能跳出数组的边界。
  * 也就是说，你可以从下标 i 跳到 [i + 1， min(n - 1, i + k)] 包含 两个端点的任意位置。
@@ -21,6 +21,9 @@ import java.util.Deque;
  * 示例 3：
  * 输入：nums = [1,-5,-20,4,-1,3,-6,-3], k = 2
  * 输出：0
+ * 提示：
+ * 1 <= nums.length, k <= 105
+ * -104 <= nums[i] <= 104
  */
 public class Solution_1696 {
     public int maxResult1(int[] nums, int k) {
