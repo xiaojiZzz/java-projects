@@ -1,5 +1,8 @@
 package leetcode.difficulty;
 
+import java.util.Arrays;
+import java.util.Comparator;
+
 /**
  * 跳跃游戏 V
  * 给你一个整数数组 arr 和一个整数 d 。每一步你可以从下标 i 跳到：
@@ -37,6 +40,28 @@ package leetcode.difficulty;
  */
 public class Solution_1340 {
     public int maxJumps(int[] arr, int d) {
-        return 0;
+        int n = arr.length;
+        int[][] numsIndices = new int[n][2];
+        for (int i = 0; i < n; i++) {
+            numsIndices[i][0] = arr[i];
+            numsIndices[i][1] = i;
+        }
+        Arrays.sort(numsIndices, Comparator.comparingInt(a -> a[0]));
+        int[] dp = new int[n];
+        int maxIndices = 0;
+        for (int i = 0; i < n; i++) {
+            int num = numsIndices[i][0], index = numsIndices[i][1];
+            int currMaxIndices = 1;
+            int minIndex = Math.max(index - d, 0), maxIndex = Math.min(index + d, n - 1);
+            for (int nextIndex = index - 1; nextIndex >= minIndex && arr[nextIndex] < num; nextIndex--) {
+                currMaxIndices = Math.max(currMaxIndices, dp[nextIndex] + 1);
+            }
+            for (int nextIndex = index + 1; nextIndex <= maxIndex && arr[nextIndex] < num; nextIndex++) {
+                currMaxIndices = Math.max(currMaxIndices, dp[nextIndex] + 1);
+            }
+            dp[index] = currMaxIndices;
+            maxIndices = Math.max(maxIndices, currMaxIndices);
+        }
+        return maxIndices;
     }
 }
