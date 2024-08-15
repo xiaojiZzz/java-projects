@@ -38,14 +38,52 @@ public class KMP {
                 next[i] = j;
                 i++;
             } else {
-                if (j == 0) {
+                if (j > 0) {
+                    j = next[j - 1];
+                } else {
                     next[i] = 0;
                     i++;
-                } else {
-                    j = next[j - 1];
                 }
             }
         }
         return next;
     }
+
+    /*
+    模版 2
+    public int getFirstIndex(String str1, String str2) {
+        int[] next = getNext(str2);
+        int n = str1.length(), m = str2.length();
+        for (int i = 0, j = 0; i < n; i++) {
+            while (j > 0 && str1.charAt(i) != str2.charAt(j)) {
+                j = next[j - 1];
+            }
+            if (str1.charAt(i) == str2.charAt(j)) {
+                j++;
+            }
+            if (j == m) {
+                return i - m + 1;
+            }
+        }
+        // 未找到返回 -1
+        return -1;
+    }
+
+    // 获取 next 数组
+    public int[] getNext(String str2) {
+        int m = str2.length();
+        int[] next = new int[m];
+        next[0] = 0;
+        for (int i = 1, j = 0; i < m; i++) {
+            while (j > 0 && str2.charAt(i) != str2.charAt(j)) {
+                j = next[j - 1];
+            }
+            if (str2.charAt(i) == str2.charAt(j)) {
+                j++;
+            }
+            next[i] = j;
+        }
+        return next;
+    }
+    */
 }
