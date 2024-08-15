@@ -1,6 +1,5 @@
 package data_structure_and_algorithm;
 
-
 // 快速幂 用于快速求解 x^n
 public class QuickMul {
     public double myPow(double x, int n) {

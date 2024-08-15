@@ -1,6 +1,5 @@
 package data_structure_and_algorithm;
 
-
 // 线段树 用于：区间求和、单点修改、区间修改、区间最大值
 public class SegmentTree {
     private int n;
@@ -191,7 +190,6 @@ public class SegmentTree {
         return Math.max(maxLeft, maxRight);
     }
 }
-
 
 // 线段树（动态开点）
 class SegmentTreeDynamic {

@@ -2,7 +2,6 @@ package data_structure_and_algorithm;
 
 import java.util.Random;
 
-
 //快速排序
 public class QuickSort {
 

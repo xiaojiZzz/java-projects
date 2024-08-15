@@ -118,7 +118,6 @@ public class LRU {
     }
 }
 
-
 // 利用api
 class LRUCache extends LinkedHashMap<Integer, Integer> {
     private int capacity;

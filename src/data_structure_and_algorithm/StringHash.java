@@ -3,7 +3,6 @@ package data_structure_and_algorithm;
 import java.util.HashSet;
 import java.util.Set;
 
-
 // 字符串 hash，用于快速查找字符串
 // leetcode 187、1044
 public class StringHash {

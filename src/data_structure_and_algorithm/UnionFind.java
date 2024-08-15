@@ -1,6 +1,5 @@
 package data_structure_and_algorithm;
 
-
 //并查集
 public class UnionFind {
     private int[] parent;
