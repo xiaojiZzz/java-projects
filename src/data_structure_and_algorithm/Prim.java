@@ -21,7 +21,7 @@ public class Prim {
         int[] weight = new int[n];
         Arrays.fill(weight, Integer.MAX_VALUE);
         inMST[0] = true;
-        // 更新未选中点到点0的最小权重
+        // 更新未选中点到点 0 的最小权重
         for (int i = 1; i < n; i++) {
             weight[i] = graph[i][0];
         }

@@ -2,7 +2,7 @@ package data_structure_and_algorithm;
 
 import java.util.*;
 
-// 可用于求解单源最短路径问题 不能解决带  负权值的图和带负权回路的图
+// 可用于求解单源最短路径问题 不能解决带负权值的图和带负权回路的图
 // 朴素 Dijkstra 适用于稠密图 时间复杂度 o(n^2) n 为节点数
 public class Dijkstra {
     private int n;
