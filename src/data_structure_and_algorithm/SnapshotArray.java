@@ -12,7 +12,7 @@ public class SnapshotArray {
         snap_cnt = 0;
         data = new List[length];
         for (int i = 0; i < length; i++) {
-            data[i] = new ArrayList<int[]>();
+            data[i] = new ArrayList<>();
         }
     }
 
