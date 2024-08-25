@@ -55,6 +55,43 @@ public class Solution_698 {
 }
 
 /*
+import java.util.Arrays;
+
+class Solution {
+    public boolean canPartitionKSubsets(int[] nums, int k) {
+        int sum = 0;
+        for (int i = 0; i < nums.length; i++)
+            sum += nums[i];
+        if (sum % k != 0)
+            return false;
+        int target = sum / k;
+        // 排序优化
+        Arrays.sort(nums);
+        return backtrack(nums, 0, new int[k], k, target);
+    }
+
+    private boolean backtrack(int[] nums, int index, int[] bucket, int k, int target) {
+        // 结束条件优化
+        if (index == nums.length)
+            return true;
+        for (int i = 0; i < k; i++) {
+            // 优化点二
+            if (i > 0 && bucket[i] == bucket[i - 1])
+                continue;
+            // 剪枝，从后往前相加，先分配大的数据，回溯的次数会少很多
+            if (bucket[i] + nums[nums.length - 1 - index] > target)
+                continue;
+            bucket[i] += nums[nums.length - 1 - index];
+            if (backtrack(nums, index + 1, bucket, k, target))
+                return true;
+            bucket[i] -= nums[nums.length - 1 - index];
+        }
+        return false;
+    }
+}
+*/
+
+/*
 class Solution {
     int[] nums;
     int n, t, k;
