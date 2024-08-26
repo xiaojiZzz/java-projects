@@ -2,7 +2,8 @@ package data_structure_and_algorithm;
 
 // 字典树 用于处理字符串集合，例如用于高效地存储和检索字符串数据集中的键
 public class Trie {
-    class TrieNode {
+
+    static class TrieNode {
         boolean isWord;
         // 字符串仅由小写英文字符组成，若没有这个限制，就不能用数组来存储字符，而使用哈希表
         TrieNode[] children;
@@ -13,7 +14,7 @@ public class Trie {
         }
     }
 
-    private TrieNode root;
+    private final TrieNode root;
 
     public Trie() {
         root = new TrieNode();
