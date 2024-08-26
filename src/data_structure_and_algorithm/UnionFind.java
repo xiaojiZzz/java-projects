@@ -2,8 +2,9 @@ package data_structure_and_algorithm;
 
 //并查集
 public class UnionFind {
-    private int[] parent;
-    private int[] height;
+
+    private final int[] parent;
+    private final int[] height;
     private int count;
 
     public UnionFind(int n) {
