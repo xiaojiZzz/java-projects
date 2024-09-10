@@ -33,7 +33,7 @@ public class Solution_2552 {
         }
         long ans = 0;
         int[] less = new int[n + 1];
-        for (int j = 1; j < n; j++) {
+        for (int j = 1; j < n - 2; j++) {
             int num = nums[j - 1];
             for (int x = num + 1; x <= n; x++) {
                 less[x]++;
