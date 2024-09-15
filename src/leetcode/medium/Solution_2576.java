@@ -27,6 +27,7 @@ import java.util.Arrays;
  * 1 <= nums[i] <= 109
  */
 public class Solution_2576 {
+    // 贪心
     public int maxNumOfMarkedIndices(int[] nums) {
         int n = nums.length;
         Arrays.sort(nums);
@@ -42,19 +43,20 @@ public class Solution_2576 {
 
 /*
 class Solution {
+    // 二分
     public int maxNumOfMarkedIndices(int[] nums) {
         Arrays.sort(nums);
         int left = 0;
-        int right = nums.length / 2 + 1; // 开区间
-        while (left + 1 < right) {
-            int mid = (left + right) >>> 1;
+        int right = nums.length / 2;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
             if (check(nums, mid)) {
-                left = mid;
+                left = mid + 1;
             } else {
-                right = mid;
+                right = mid - 1;
             }
         }
-        return left * 2; // 最多匹配 left 对，有 left * 2 个数
+        return right * 2;
     }
 
     private boolean check(int[] nums, int k) {
