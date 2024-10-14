@@ -67,3 +67,32 @@ public class Solution_887 {
         return res;
     }
 }
+
+/*
+class Solution {
+    public int superEggDrop(int k, int n) {
+        int[][] dp = new int[n + 1][k + 1];
+        for (int i = 1; i <= k; i++) {
+            dp[1][i] = 1;
+        }
+        for (int i = 2; i <= n; i++) {
+            dp[i][1] = i;
+            for (int j = 2; j <= k; j++) {
+                int low = 1, high = i;
+                while (low + 1 < high) {
+                    int mid = (low + high) / 2;
+                    int breakCount = dp[mid - 1][j - 1];
+                    int notBreakCount = dp[i - mid][j];
+                    if (breakCount > notBreakCount) {
+                        high = mid;
+                    } else {
+                        low = mid;
+                    }
+                }
+                dp[i][j] = 1 + Math.max(dp[low - 1][j - 1], dp[i - low][j]);
+            }
+        }
+        return dp[n][k];
+    }
+}
+*/
