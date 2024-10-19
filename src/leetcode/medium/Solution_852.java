@@ -31,6 +31,7 @@ public class Solution_852 {
     }
 }
 
+/*
 class Solution {
     public int peakIndexInMountainArray(int[] arr) {
         int left = 0, right = arr.length - 1;
@@ -45,3 +46,4 @@ class Solution {
         return left;
     }
 }
+*/
