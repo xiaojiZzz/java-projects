@@ -21,7 +21,6 @@ public class Solution_459 {
         for (int i = 1; i <= n / 2; i++) {
             if (s.charAt(i) == s.charAt(0)) {
                 String substring = s.substring(0, i);
-                int len = i;
                 for (int j = i; j + i <= n; j += i) {
                     if (!substring.equals(s.substring(j, j + i))) {
                         break;
@@ -41,6 +40,25 @@ class Solution {
     public boolean repeatedSubstringPattern(String s) {
         String str = s + s;
         return str.substring(1, str.length() - 1).contains(s);
+    }
+}
+*/
+
+/*
+class Solution {
+    public boolean repeatedSubstringPattern(String s) {
+        int lens = s.length(), i = 0;
+        while (++i <= lens / 2) {
+            if (lens % i != 0) continue;
+            // 判断x是不是基串
+            if (s.substring(lens - i, lens).equals(s.substring(0, i))) {
+                // 判断拿去x后是否相等
+                if (s.substring(i, lens).equals(s.substring(0, lens - i))) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
 */
