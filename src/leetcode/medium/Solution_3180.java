@@ -46,6 +46,7 @@ public class Solution_3180 {
     }
 }
 
+/*
 class Solution {
     // 优化空间复杂度
     public int maxTotalReward(int[] rewardValues) {
@@ -66,3 +67,4 @@ class Solution {
         return ans;
     }
 }
+*/
