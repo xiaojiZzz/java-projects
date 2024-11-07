@@ -35,3 +35,71 @@ public class Solution_740 {
         return dp[10001];
     }
 }
+
+/*
+class Solution {
+    public int deleteAndEarn(int[] nums) {
+        Map<Integer, Integer> cnt = new HashMap<>();
+        for (int num : nums) {
+            cnt.merge(num, 1, Integer::sum);
+        }
+
+        int n = cnt.size();
+        int[] a = new int[n];
+        int k = 0;
+        for (int x : cnt.keySet()) {
+            a[k++] = x;
+        }
+        Arrays.sort(a);
+
+        int[] memo = new int[n];
+        Arrays.fill(memo, -1);
+        return dfs(a, cnt, memo, n - 1);
+    }
+
+    private int dfs(int[] a, Map<Integer, Integer> cnt, int[] memo, int i) {
+        if (i < 0) {
+            return 0;
+        }
+        if (memo[i] != -1) {
+            return memo[i];
+        }
+        int x = a[i];
+        int j = i;
+        while (j > 0 && a[j - 1] >= x - 1) {
+            j--;
+        }
+        return memo[i] = Math.max(dfs(a, cnt, memo, i - 1), dfs(a, cnt, memo, j - 1) + x * cnt.get(x));
+    }
+}
+*/
+
+/*
+class Solution {
+    public int deleteAndEarn(int[] nums) {
+        Map<Integer, Integer> cnt = new HashMap<>();
+        for (int num : nums) {
+            cnt.merge(num, 1, Integer::sum);
+        }
+
+        int n = cnt.size();
+        int[] a = new int[n];
+        int k = 0;
+        for (int x : cnt.keySet()) {
+            a[k++] = x;
+        }
+        Arrays.sort(a);
+
+        int[] dp = new int[n + 1];
+        int j = 0;
+        for (int i = 0; i < n; i++) {
+            int x = a[i];
+            while (a[j] < x - 1) {
+                j++;
+            }
+            dp[i + 1] = Math.max(dp[i], dp[j] + x * cnt.get(x));
+        }
+        return dp[n];
+    }
+}
+*/
