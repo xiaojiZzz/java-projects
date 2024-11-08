@@ -1,4 +1,4 @@
-package leetcode.contest.weekly_409;
+package leetcode.simple;
 
 /**
  * 设计相邻元素求和服务
