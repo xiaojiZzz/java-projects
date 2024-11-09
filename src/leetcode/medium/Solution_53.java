@@ -1,7 +1,7 @@
 package leetcode.medium;
 
-
 /**
+ * 最大子数组和
  * 给你一个整数数组 nums ，请你找出一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
  * 子数组 是数组中的一个连续部分。
  * 示例 1：
@@ -14,6 +14,10 @@ package leetcode.medium;
  * 示例 3：
  * 输入：nums = [5,4,-1,7,8]
  * 输出：23
+ * 提示：
+ *
+ * 1 <= nums.length <= 105
+ * -104 <= nums[i] <= 104
  */
 public class Solution_53 {
     public int maxSubArray(int[] nums) {
@@ -40,6 +44,22 @@ class Solution {
             res = Math.max(res, pre);
         }
         return res;
+    }
+}
+*/
+
+/*
+class Solution {
+    public int maxSubArray(int[] nums) {
+        int ans = Integer.MIN_VALUE;
+        int minPreSum = 0;
+        int preSum = 0;
+        for (int x : nums) {
+            preSum += x; // 当前的前缀和
+            ans = Math.max(ans, preSum - minPreSum); // 减去前缀和的最小值
+            minPreSum = Math.min(minPreSum, preSum); // 维护前缀和的最小值
+        }
+        return ans;
     }
 }
 */
