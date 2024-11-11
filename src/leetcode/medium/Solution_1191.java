@@ -1,7 +1,5 @@
 package leetcode.medium;
 
-import java.util.Arrays;
-
 /**
  * K 次串联后最大子数组之和
  * 给定一个整数数组 arr 和一个整数 k ，通过重复 k 次来修改数组。
@@ -26,21 +24,22 @@ public class Solution_1191 {
     public int kConcatenationMaxSum(int[] arr, int k) {
         int mod = 1000000007;
         if (k == 1) {
-            return Math.max(0, maxSubArray(arr) % mod);
+            return maxSubArray(arr) % mod;
         }
-        int sum = Arrays.stream(arr).sum();
         int n = arr.length;
         int[] array = new int[2 * n];
+        int sum = 0;
         for (int i = 0; i < n; i++) {
+            sum += arr[i];
             array[i] = array[i + n] = arr[i];
         }
-        long ans = (sum > 0 ? (long) sum * (k - 2) + maxSubArray(array) : Math.max(0, maxSubArray(array))) % mod;
+        long ans = ((long) Math.max(sum, 0) * (k - 2) + maxSubArray(array)) % mod;
         return (int) ans;
     }
 
     private int maxSubArray(int[] nums) {
         int pre = 0;
-        int res = nums[0];
+        int res = 0;
         for (int num : nums) {
             pre = Math.max(pre, 0) + num;
             res = Math.max(res, pre);
@@ -51,18 +50,15 @@ public class Solution_1191 {
 
 /*
 class Solution {
-
-    private final static int MOD = 1_000_000_007;
-
     public int kConcatenationMaxSum(int[] arr, int k) {
-        int max = 0;
-        int dp = 0;
+        int max = 0, dp = 0;
+        int mod = 1000000007;
         for (int num : arr) {
             dp = Math.max(dp, 0) + num;
             max = Math.max(max, dp);
         }
         if (k == 1) {
-            return max % MOD;
+            return max % mod;
         }
         int sum = 0;
         for (int num : arr) {
@@ -70,7 +66,7 @@ class Solution {
             dp = Math.max(dp, 0) + num;
             max = Math.max(max, dp);
         }
-        return (int) ((max + (long) (k - 2) * Math.max(0, sum)) % MOD);
+        return (int) ((max + (long) (k - 2) * Math.max(0, sum)) % mod);
     }
 }
 */
