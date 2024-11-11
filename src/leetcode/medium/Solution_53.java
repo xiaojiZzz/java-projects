@@ -40,7 +40,7 @@ class Solution {
         int pre = 0;
         int res = nums[0];
         for (int num : nums) {
-            pre = Math.max(pre + num, num);
+            pre = Math.max(pre, 0) + num;
             res = Math.max(res, pre);
         }
         return res;
