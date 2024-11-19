@@ -130,7 +130,7 @@ class Solution {
             }
         }
 
-        return dist[end] == Integer.MAX_VALUE ? -1 : dist[end];
+        return dist[end] == Integer.MAX_VALUE / 2 ? -1 : dist[end];
     }
 }
 */
