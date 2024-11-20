@@ -1,4 +1,4 @@
-package leetcode.contest.weekly_409;
+package leetcode.difficulty;
 
 /**
  * 给你一个整数 n 和一个二维整数数组 queries。
