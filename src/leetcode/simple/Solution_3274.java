@@ -23,8 +23,8 @@ package leetcode.simple;
  */
 public class Solution_3274 {
     public boolean checkTwoChessboards(String coordinate1, String coordinate2) {
-        return (((coordinate1.charAt(0) - 'a') & 1) ^ ((coordinate1.charAt(1) - '0') & 1)) ==
-                (((coordinate2.charAt(0) - 'a') & 1) ^ ((coordinate2.charAt(1) - '0') & 1));
+        return ((coordinate1.charAt(0) & 1) ^ (coordinate1.charAt(1) & 1)) ==
+                ((coordinate2.charAt(0) & 1) ^ (coordinate2.charAt(1) & 1));
     }
 }
 
