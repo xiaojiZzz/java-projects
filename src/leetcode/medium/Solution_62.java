@@ -43,3 +43,39 @@ public class Solution_62 {
         return dp[m - 1][n - 1];
     }
 }
+
+/*
+// 优化空间复杂度
+class Solution {
+    public int uniquePaths(int m, int n) {
+        int[] dp = new int[n];
+        Arrays.fill(dp, 1);
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                dp[j] = dp[j - 1] + dp[j];
+            }
+        }
+        return dp[n - 1];
+    }
+}
+*/
+
+/*
+// dfs
+class Solution {
+    public int uniquePaths(int m, int n) {
+        int[][] memo = new int[m][n];
+        return dfs(m - 1, n - 1, memo);
+    }
+
+    private int dfs(int i, int j, int[][] memo) {
+        if (i == 0 || j == 0) {
+            return 1;
+        }
+        if (memo[i][j] > 0) {
+            return memo[i][j];
+        }
+        return memo[i][j] = dfs(i - 1, j, memo) + dfs(i, j - 1, memo);
+    }
+}
+*/
