@@ -1,9 +1,7 @@
 package leetcode.medium;
 
-import java.util.Arrays;
-
-
 /**
+ * 网格中的最小路径代价
  * 给你一个下标从 0 开始的整数矩阵 grid ，矩阵大小为 m x n ，由从 0 到 m * n - 1 的不同整数组成。你可以在此矩阵中，
  * 从一个单元格移动到 下一行 的任何其他单元格。如果你位于单元格 (x, y) ，且满足 x < m - 1 ，
  * 你可以移动到 (x + 1, 0), (x + 1, 1), ..., (x + 1, n - 1) 中的任何一个单元格。注意： 在最后一行中的单元格不能触发移动。
@@ -27,24 +25,62 @@ import java.util.Arrays;
  * - 路径途经单元格值之和 2 + 3 = 5 。
  * - 从 2 移动到 3 的代价为 1 。
  * 路径总代价为 5 + 1 = 6 。
+ * 提示：
+ * m == grid.length
+ * n == grid[i].length
+ * 2 <= m, n <= 50
+ * grid 由从 0 到 m * n - 1 的不同整数组成
+ * moveCost.length == m * n
+ * moveCost[i].length == n
+ * 1 <= moveCost[i][j] <= 100
  */
 public class Solution_2304 {
     public int minPathCost(int[][] grid, int[][] moveCost) {
         int m = grid.length, n = grid[0].length;
         int[][] dp = new int[m][n];
-        for (int i = 1; i < m; i++) {
-            Arrays.fill(dp[i], Integer.MAX_VALUE);
-        }
-        for (int i = 1; i < m; i++) {
+        dp[m - 1] = grid[m - 1];
+        for (int i = m - 2; i >= 0; i--) {
             for (int j = 0; j < n; j++) {
+                dp[i][j] = Integer.MAX_VALUE;
                 for (int k = 0; k < n; k++) {
-                    dp[i][j] = Math.min(dp[i][j], grid[i - 1][k] + dp[i - 1][k] + moveCost[grid[i - 1][k]][j]);
+                    dp[i][j] = Math.min(dp[i][j], dp[i + 1][k] + moveCost[grid[i][k]][j]);
                 }
+                dp[i][j] += grid[i][j];
             }
         }
+        int ans = Integer.MAX_VALUE;
         for (int i = 0; i < n; i++) {
-            dp[m - 1][i] += grid[m - 1][i];
+            ans = Math.min(ans, dp[0][i]);
         }
-        return Arrays.stream(dp[m - 1]).min().getAsInt();
+        return ans;
     }
 }
+
+/*
+class Solution {
+    public int minPathCost(int[][] grid, int[][] moveCost) {
+        int m = grid.length, n = grid[0].length;
+        int minCost = Integer.MAX_VALUE;
+        int[][] memo = new int[m][n];
+        for (int i = 0; i < n; i++) {
+            minCost = Math.min(minCost, dfs(0, i, grid, moveCost, memo));
+        }
+        return minCost;
+    }
+
+    private int dfs(int i, int j, int[][] grid, int[][] moveCost, int[][] memo) {
+        int m = grid.length, n = grid[0].length;
+        if (i == m - 1) {
+            return grid[i][j];
+        }
+        if (memo[i][j] != 0) {
+            return memo[i][j];
+        }
+        int minCost = Integer.MAX_VALUE;
+        for (int k = 0; k < n; k++) {
+            minCost = Math.min(minCost, dfs(i + 1, k, grid, moveCost, memo) + grid[i][j] + moveCost[grid[i][j]][k]);
+        }
+        return memo[i][j] = minCost;
+    }
+}
+*/
