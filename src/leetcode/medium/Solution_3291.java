@@ -60,36 +60,36 @@ public class Solution_3291 {
         }
         return dp[m] == Integer.MAX_VALUE / 2 ? -1 : dp[m];
     }
-}
 
-class Trie {
+    class Trie {
 
-    static class TrieNode {
-        boolean isWord;
-        TrieNode[] children;
+        static class TrieNode {
+            boolean isWord;
+            TrieNode[] children;
 
-        public TrieNode() {
-            isWord = false;
-            children = new TrieNode[26];
-        }
-    }
-
-    final TrieNode root;
-
-    public Trie() {
-        root = new TrieNode();
-    }
-
-    public void insert(String word) {
-        TrieNode trieNode = root;
-        for (int i = 0; i < word.length(); i++) {
-            int n = word.charAt(i) - 'a';
-            if (trieNode.children[n] == null) {
-                trieNode.children[n] = new TrieNode();
+            public TrieNode() {
+                isWord = false;
+                children = new TrieNode[26];
             }
-            trieNode = trieNode.children[n];
         }
-        trieNode.isWord = true;
+
+        final TrieNode root;
+
+        public Trie() {
+            root = new TrieNode();
+        }
+
+        public void insert(String word) {
+            TrieNode trieNode = root;
+            for (int i = 0; i < word.length(); i++) {
+                int n = word.charAt(i) - 'a';
+                if (trieNode.children[n] == null) {
+                    trieNode.children[n] = new TrieNode();
+                }
+                trieNode = trieNode.children[n];
+            }
+            trieNode.isWord = true;
+        }
     }
 }
 
