@@ -1,6 +1,7 @@
 package leetcode.medium;
 
-import java.util.PriorityQueue;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.TreeSet;
 
 /**
@@ -29,57 +30,55 @@ import java.util.TreeSet;
  */
 public class Solution_855 {
     class ExamRoom {
-        int n;
-        TreeSet<Integer> seats;
-        PriorityQueue<int[]> pq;
+        private final TreeSet<int[]> ts = new TreeSet<>((a, b) -> {
+            int d1 = dist(a), d2 = dist(b);
+            return d1 == d2 ? a[0] - b[0] : d2 - d1;
+        });
+        private final Map<Integer, Integer> left = new HashMap<>();
+        private final Map<Integer, Integer> right = new HashMap<>();
+        private final int n;
 
         public ExamRoom(int n) {
             this.n = n;
-            this.seats = new TreeSet<Integer>();
-            this.pq = new PriorityQueue<int[]>((a, b) -> {
-                int d1 = a[1] - a[0], d2 = b[1] - b[0];
-                return d1 / 2 < d2 / 2 || (d1 / 2 == d2 / 2 && a[0] > b[0]) ? 1 : -1;
-            });
+            add(new int[]{-1, n});
         }
 
         public int seat() {
-            if (seats.isEmpty()) {
-                seats.add(0);
-                return 0;
+            int[] s = ts.first();
+            int p = (s[0] + s[1]) >> 1;
+            if (s[0] == -1) {
+                p = 0;
+            } else if (s[1] == n) {
+                p = n - 1;
             }
-            int left = seats.first(), right = n - 1 - seats.last();
-            while (seats.size() >= 2) {
-                int[] p = pq.peek();
-                if (seats.contains(p[0]) && seats.contains(p[1]) && seats.higher(p[0]) == p[1]) { // 不属于延迟删除的区间
-                    int d = p[1] - p[0];
-                    if (d / 2 < right || d / 2 <= left) { // 最左或最右的座位更优
-                        break;
-                    }
-                    pq.poll();
-                    pq.offer(new int[]{p[0], p[0] + d / 2});
-                    pq.offer(new int[]{p[0] + d / 2, p[1]});
-                    seats.add(p[0] + d / 2);
-                    return p[0] + d / 2;
-                }
-                pq.poll(); // leave 函数中延迟删除的区间在此时删除
-            }
-            if (right > left) { // 最右的位置更优
-                pq.offer(new int[]{seats.last(), n - 1});
-                seats.add(n - 1);
-                return n - 1;
-            } else {
-                pq.offer(new int[]{0, seats.first()});
-                seats.add(0);
-                return 0;
-            }
+            del(s);
+            add(new int[]{s[0], p});
+            add(new int[]{p, s[1]});
+            return p;
         }
 
         public void leave(int p) {
-            if (p != seats.first() && p != seats.last()) {
-                int prev = seats.lower(p), next = seats.higher(p);
-                pq.offer(new int[]{prev, next});
-            }
-            seats.remove(p);
+            int l = left.get(p), r = right.get(p);
+            del(new int[]{l, p});
+            del(new int[]{p, r});
+            add(new int[]{l, r});
+        }
+
+        private int dist(int[] s) {
+            int l = s[0], r = s[1];
+            return l == -1 || r == n ? r - l - 1 : (r - l) >> 1;
+        }
+
+        private void add(int[] s) {
+            ts.add(s);
+            left.put(s[1], s[0]);
+            right.put(s[0], s[1]);
+        }
+
+        private void del(int[] s) {
+            ts.remove(s);
+            left.remove(s[1]);
+            right.remove(s[0]);
         }
     }
 }
