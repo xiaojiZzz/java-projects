@@ -41,3 +41,24 @@ public class Solution_1367 {
                 list == head && (dfs(head, tree.left) || dfs(head, tree.right));
     }
 }
+
+/*
+class Solution {
+    public boolean isSubPath(ListNode head, TreeNode root) {
+        if (root == null) {
+            return false;
+        }
+        return dfs(head, root) || isSubPath(head, root.left) || isSubPath(head, root.right);
+    }
+
+    private boolean dfs(ListNode head, TreeNode root) {
+        if (head == null) {
+            return true;
+        }
+        if (root == null || head.val != root.val) {
+            return false;
+        }
+        return dfs(head.next, root.left) || dfs(head.next, root.right);
+    }
+}
+*/
