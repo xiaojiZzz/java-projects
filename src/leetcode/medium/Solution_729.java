@@ -28,6 +28,7 @@ import java.util.List;
  * 每个测试用例，调用 book 方法的次数最多不超过 1000 次。
  */
 public class Solution_729 {
+    // 直接模拟
     class MyCalendar {
 
         List<int[]> arranges;
@@ -50,6 +51,7 @@ public class Solution_729 {
 }
 
 /*
+// 有序集合
 class MyCalendar {
     TreeSet<int[]> booked;
 
@@ -73,6 +75,7 @@ class MyCalendar {
 */
 
 /*
+// 利用 TreeSet 排序特性
 class MyCalendar {
 
     Set<int[]> set;
@@ -96,6 +99,7 @@ class MyCalendar {
 */
 
 /*
+// 动态开点线段树
 class MyCalendar {
     Set<Integer> tree;
     Set<Integer> lazy;
@@ -147,6 +151,34 @@ class MyCalendar {
             update(start, end, mid + 1, r, 2 * idx + 1);
             tree.add(idx);
         }
+    }
+}
+*/
+
+/*
+// 差分
+class MyCalendar {
+
+    TreeMap<Integer, Integer> cnt;
+
+    public MyCalendar() {
+        cnt = new TreeMap<>();
+    }
+
+    public boolean book(int start, int end) {
+        int maxBook = 0;
+        cnt.put(start, cnt.getOrDefault(start, 0) + 1);
+        cnt.put(end, cnt.getOrDefault(end, 0) - 1);
+        for (Map.Entry<Integer, Integer> entry : cnt.entrySet()) {
+            int freq = entry.getValue();
+            maxBook += freq;
+            if (maxBook > 1) {
+                cnt.put(start, cnt.get(start) - 1);
+                cnt.put(end, cnt.get(end) + 1);
+                return false;
+            }
+        }
+        return true;
     }
 }
 */
