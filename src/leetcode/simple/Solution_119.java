@@ -3,7 +3,6 @@ package leetcode.simple;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * 给定一个非负索引 rowIndex，返回「杨辉三角」的第 rowIndex 行。
  * 在「杨辉三角」中，每个数是它左上方和右上方的数的和。
@@ -13,31 +12,47 @@ import java.util.List;
  */
 public class Solution_119 {
     public List<Integer> getRow(int rowIndex) {
-        List<List<Integer>> lists = new ArrayList<>();
-        List<Integer> list1 = new ArrayList<>();
-        list1.add(1);
-        lists.add(list1);
-        if (rowIndex == 0) {
-            return lists.get(0);
-        }
-        List<Integer> list2 = new ArrayList<>();
-        list2.add(1);
-        list2.add(1);
-        lists.add(list2);
-        if (rowIndex == 1) {
-            return lists.get(1);
-        }
-        for (int i = 2; i <= rowIndex; i++) {
-            List<Integer> list = new ArrayList<>();
-            list.add(1);
-            for (int j = 0; j < i - 1; j++) {
-                List<Integer> integers = lists.get(i - 1);
-                int x = integers.get(j) + integers.get(j + 1);
-                list.add(x);
+        List<List<Integer>> ret = new ArrayList<>();
+        List<Integer> res = null;
+        for (int i = 0; i <= rowIndex; ++i) {
+            List<Integer> row = new ArrayList<>();
+            for (int j = 0; j <= i; ++j) {
+                if (j == 0 || j == i) {
+                    row.add(1);
+                } else {
+                    row.add(ret.get(i - 1).get(j - 1) + ret.get(i - 1).get(j));
+                }
             }
-            list.add(1);
-            lists.add(list);
+            ret.add(row);
+            if (i == rowIndex) {
+                res = row;
+            }
         }
-        return lists.get(rowIndex);
+        return res;
     }
 }
+
+/*
+class Solution {
+
+    private static final List<Integer>[] c = new List[34];
+
+    static {
+        c[0] = List.of(1);
+        for (int i = 1; i < c.length; i++) {
+            List<Integer> row = new ArrayList<>(i + 1); // 预分配空间
+            row.add(1);
+            for (int j = 1; j < i; j++) {
+                // 左上方的数 + 正上方的数
+                row.add(c[i - 1].get(j - 1) + c[i - 1].get(j));
+            }
+            row.add(1);
+            c[i] = row;
+        }
+    }
+
+    public List<Integer> getRow(int rowIndex) {
+        return c[rowIndex];
+    }
+}
+ */
