@@ -12,23 +12,20 @@ import java.util.List;
  */
 public class Solution_119 {
     public List<Integer> getRow(int rowIndex) {
-        List<List<Integer>> ret = new ArrayList<>();
-        List<Integer> res = null;
-        for (int i = 0; i <= rowIndex; ++i) {
-            List<Integer> row = new ArrayList<>();
-            for (int j = 0; j <= i; ++j) {
-                if (j == 0 || j == i) {
-                    row.add(1);
-                } else {
-                    row.add(ret.get(i - 1).get(j - 1) + ret.get(i - 1).get(j));
-                }
+        List<Integer> pre = null, cur;
+        for (int i = 0; i <= rowIndex; i++) {
+            cur = new ArrayList<>(i + 1);
+            for (int k = 0; k <= i; k++) {
+                cur.add(0);
             }
-            ret.add(row);
-            if (i == rowIndex) {
-                res = row;
+            cur.set(0, 1);
+            cur.set(i, 1);
+            for (int j = 1; j < i; j++) {
+                cur.set(j, pre.get(j - 1) + pre.get(j));
             }
+            pre = cur;
         }
-        return res;
+        return pre;
     }
 }
 
