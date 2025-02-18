@@ -43,7 +43,6 @@ public class Solution_2080 {
             if (a == null) {
                 return 0;
             }
-            // > right 等价于 >= right+1
             return lowerBound(a, right + 1) - lowerBound(a, left);
         }
 
@@ -51,18 +50,15 @@ public class Solution_2080 {
             // 开区间 (left, right)
             int left = -1;
             int right = a.size();
-            while (left + 1 < right) { // 区间不为空
-                // 循环不变量：
-                // a[left] < target
-                // a[right] >= target
+            while (left + 1 < right) {
                 int mid = (left + right) >>> 1;
                 if (a.get(mid) < target) {
-                    left = mid; // 范围缩小到 (mid, right)
+                    left = mid;
                 } else {
-                    right = mid; // 范围缩小到 (left, mid)
+                    right = mid;
                 }
             }
-            return right; // right 是最小的满足 a[right] >= target 的下标
+            return right;
         }
     }
 }
