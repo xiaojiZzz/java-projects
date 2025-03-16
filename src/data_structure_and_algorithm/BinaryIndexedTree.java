@@ -43,7 +43,7 @@ public class BinaryIndexedTree {
         nums[i] = val;
     }
 
-    //区间求和
+    // 区间求和
     public int sumRange(int left, int right) {
         return prefixSum(right + 1) - prefixSum(left);
     }
