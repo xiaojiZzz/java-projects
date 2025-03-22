@@ -51,3 +51,20 @@ public class Solution_2610 {
         return ans;
     }
 }
+
+/*
+class Solution {
+    public List<List<Integer>> findMatrix(int[] nums) {
+        List<List<Integer>> ans = new ArrayList<>();
+        int[] cnt = new int[nums.length + 1];
+        for (int x : nums) {
+            if (cnt[x] == ans.size()) { // 需要加一行
+                ans.add(new ArrayList<>());
+            }
+            ans.get(cnt[x]).add(x);
+            cnt[x]++;
+        }
+        return ans;
+    }
+}
+*/
