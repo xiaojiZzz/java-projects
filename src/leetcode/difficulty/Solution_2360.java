@@ -25,37 +25,41 @@ import java.util.*;
  */
 public class Solution_2360 {
     public int longestCycle(int[] edges) {
-        // 试试 拓扑排序
+        // 拓扑排序
         int size = edges.length;
-        int[] cnt = new int[size];// 储存每个点的入度
-        for (int edge : edges) { // 记录每个点的入度
+        // 储存每个点的入度
+        int[] cnt = new int[size];
+        for (int edge : edges) {
             if (edge != -1) {
                 cnt[edge]++;
             }
         }
-        Queue<Integer> q = new LinkedList<>();// 队列 用来储存入度为 0 的点
-        for (int i = 0; i < size; i++) { // 将入度为 0 的点先入队列 q
-            if (cnt[i] == 0) {
-                q.add(i);
-            }
-        }
-        while (!q.isEmpty()) { // 跑一遍拓扑排序
-            int top = q.poll();
-            if (edges[top] != -1 && --cnt[edges[top]] == 0) {
-                q.add(edges[top]);
-            }
-        }
-        int ans = -1; // 返回值 ans 默认为 -1
-        // 跑完拓扑排序后，cnt[i]!=0 的都是环里面的元素
+        // 队列用来储存入度为 0 的点
+        Queue<Integer> queue = new ArrayDeque<>();
+        // 将入度为 0 的点先入队列 queue
         for (int i = 0; i < size; i++) {
-            if (cnt[i] != 0) { // cnt[i]!=0 说明有环
-                int count = 0, cur = i; // count 记录环的大小,cur 遍历环中每个元素
-                while (cnt[cur] != 0) { // 跑一遍环后退出 while 循环
+            if (cnt[i] == 0) {
+                queue.add(i);
+            }
+        }
+        while (!queue.isEmpty()) {
+            int top = queue.poll();
+            if (edges[top] != -1 && --cnt[edges[top]] == 0) {
+                queue.add(edges[top]);
+            }
+        }
+        int ans = -1;
+        // 跑完拓扑排序后，cnt[i] != 0 的都是环里面的元素
+        for (int i = 0; i < size; i++) {
+            if (cnt[i] != 0) {
+                // count 记录环的大小, cur 遍历环中每个元素
+                int count = 0, cur = i;
+                while (cnt[cur] != 0) {
                     count++;
                     cnt[cur]--;
                     cur = edges[cur];
                 }
-                ans = Math.max(ans, count); // 记录最大的环
+                ans = Math.max(ans, count);
             }
         }
         return ans;
