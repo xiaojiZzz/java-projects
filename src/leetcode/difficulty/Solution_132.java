@@ -62,6 +62,7 @@ public class Solution_132 {
     }
 }
 
+/*
 class Solution {
     public int minCut(String S) {
         char[] chars = S.toCharArray();
@@ -92,3 +93,4 @@ class Solution {
         return dp[n - 1];
     }
 }
+*/
