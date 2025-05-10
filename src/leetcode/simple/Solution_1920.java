@@ -60,3 +60,20 @@ class Solution {
     }
 }
 */
+
+/*
+class Solution {
+    public int[] buildArray(int[] nums) {
+        int n = nums.length;
+        // 第一次遍历编码最终值
+        for (int i = 0; i < n; ++i) {
+            nums[i] += 1000 * (nums[nums[i]] % 1000);
+        }
+        // 第二次遍历修改为最终值
+        for (int i = 0; i < n; ++i) {
+            nums[i] /= 1000;
+        }
+        return nums;
+    }
+}
+*/
