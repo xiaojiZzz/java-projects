@@ -63,6 +63,7 @@ class Solution {
 
 /*
 class Solution {
+    // 把答案保存在 nums[i] 的高位上
     public int[] buildArray(int[] nums) {
         int n = nums.length;
         // 第一次遍历编码最终值
