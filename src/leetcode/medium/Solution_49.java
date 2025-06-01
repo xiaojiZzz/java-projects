@@ -37,6 +37,22 @@ public class Solution_49 {
 
 /*
 class Solution {
+    // 简便写法
+    public List<List<String>> groupAnagrams(String[] strs) {
+        Map<String, List<String>> map = new HashMap<>();
+        for (String str : strs) {
+            char[] chars = str.toCharArray();
+            Arrays.sort(chars);
+            String string = Arrays.toString(chars);
+            map.computeIfAbsent(string, v -> new ArrayList<>()).add(str);
+        }
+        return new ArrayList<>(map.values());
+    }
+}
+*/
+
+/*
+class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
         Map<String, List<String>> map = new HashMap<String, List<String>>();
         for (String str : strs) {
