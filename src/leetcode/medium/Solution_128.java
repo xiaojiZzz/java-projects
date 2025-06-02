@@ -1,7 +1,7 @@
 package leetcode.medium;
 
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  */
 public class Solution_128 {
     public int longestConsecutive(int[] nums) {
-        HashSet<Integer> set = new HashSet<>(Arrays.stream(nums).boxed().collect(Collectors.toList()));
+        Set<Integer> set = Arrays.stream(nums).boxed().collect(Collectors.toSet());
         int ans = 0;
         for (Integer num : set) {
             if (set.contains(num - 1)) {
@@ -76,6 +76,7 @@ class Solution {
             int right = map.containsKey(n + 1) ? map.get(n + 1) : 0;
 
             int len = left + right + 1;
+            // 只用来标记 n 已被使用
             map.put(n, 1);
             map.put(n - left, len);
             map.put(n + right, len);
