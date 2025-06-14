@@ -3,48 +3,45 @@ package leetcode.medium;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
+ * 螺旋矩阵
  * 给你一个 m 行 n 列的矩阵 matrix ，请按照 顺时针螺旋顺序 ，返回矩阵中的所有元素。
  * 示例 1：
  * 输入：matrix = [[1,2,3],[4,5,6],[7,8,9]]
  * 输出：[1,2,3,6,9,8,7,4,5]
+ * 提示：
+ * m == matrix.length
+ * n == matrix[i].length
+ * 1 <= m, n <= 10
+ * -100 <= matrix[i][j] <= 100
  */
 public class Solution_54 {
     public List<Integer> spiralOrder(int[][] matrix) {
-        List<Integer> order = new ArrayList();
-        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
-            return order;
+        int m = matrix.length, n = matrix[0].length;
+        boolean[][] isVisited = new boolean[m][n];
+        int[][] pos = new int[][]{{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        List<Integer> ans = new ArrayList<>();
+        int x = 0, y = 0, idx = 0;
+        for (int i = 0; i < m * n; i++) {
+            ans.add(matrix[x][y]);
+            isVisited[x][y] = true;
+            int x1 = pos[idx][0], y1 = pos[idx][1];
+            if (x + x1 >= 0 && x + x1 < m && y + y1 >= 0 && y + y1 < n && !isVisited[x + x1][y + y1]) {
+                x += x1;
+                y += y1;
+            } else {
+                idx = (idx + 1) % 4;
+                x += pos[idx][0];
+                y += pos[idx][1];
+            }
         }
-        int rows = matrix.length, columns = matrix[0].length;
-        int left = 0, right = columns - 1, top = 0, bottom = rows - 1;
-        while (left <= right && top <= bottom) {
-            for (int column = left; column <= right; column++) {
-                order.add(matrix[top][column]);
-            }
-            for (int row = top + 1; row <= bottom; row++) {
-                order.add(matrix[row][right]);
-            }
-            if (left < right && top < bottom) {
-                for (int column = right - 1; column > left; column--) {
-                    order.add(matrix[bottom][column]);
-                }
-                for (int row = bottom; row > top; row--) {
-                    order.add(matrix[row][left]);
-                }
-            }
-            left++;
-            right--;
-            top++;
-            bottom--;
-        }
-        return order;
+        return ans;
     }
 }
 
 /*
 class Solution {
-    //削头旋转
+    // 削头旋转
     public List<Integer> spiralOrder(int[][] matrix) {
         List<Integer> res = new ArrayList<>();
         while (matrix.length >= 1) {
