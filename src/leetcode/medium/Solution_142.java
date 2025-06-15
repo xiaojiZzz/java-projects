@@ -14,28 +14,19 @@ package leetcode.medium;
  */
 public class Solution_142 {
     public ListNode detectCycle(ListNode head) {
-        //双指针
-        if (head == null || head.next == null) {
-            return null;
-        }
-        ListNode first = head;
-        ListNode slow = head;
-        do {
-            first = first.next.next;
+        ListNode slow = head, fast = head;
+        while (fast != null && fast.next != null) {
             slow = slow.next;
-            if (first == null) {
-                return null;
-            }
-        } while (first != slow && first.next != null);
-        first = head;
-        while (first != slow) {
-            first = first.next;
-            slow = slow.next;
-            if (slow == null) {
-                return null;
+            fast = fast.next.next;
+            if (fast == slow) {
+                while (slow != head) {
+                    slow = slow.next;
+                    head = head.next;
+                }
+                return slow;
             }
         }
-        return slow;
+        return null;
     }
 }
 
