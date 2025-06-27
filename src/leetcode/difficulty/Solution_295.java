@@ -37,37 +37,20 @@ public class Solution_295 {
         }
 
         public void addNum(int num) {
-            if (min.size() > max.size()) {
-                Integer x = min.poll();
-                if (x > num) {
-                    min.add(num);
-                    max.add(x);
-                } else {
-                    min.add(x);
-                    max.add(num);
-                }
+            if (min.size() == max.size()) {
+                max.offer(num);
+                min.offer(max.poll());
             } else {
-                if (min.isEmpty()) {
-                    min.add(num);
-                } else {
-                    Integer x = max.poll();
-                    if (x > num) {
-                        min.add(num);
-                        max.add(x);
-                    } else {
-                        min.add(x);
-                        max.add(num);
-                    }
-                }
+                min.offer(num);
+                max.offer(min.poll());
             }
         }
 
         public double findMedian() {
-            if ((min.size() + max.size()) % 2 == 0) {
-                return (min.peek() + max.peek()) / 2.0;
-            } else {
+            if (min.size() > max.size()) {
                 return min.peek();
             }
+            return (min.peek() + max.peek()) / 2.0;
         }
     }
 }
